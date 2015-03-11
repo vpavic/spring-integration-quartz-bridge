@@ -1,0 +1,29 @@
+def javaVersion = '1.7'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+project.sourceCompatibility = javaVersion
+project.targetCompatibility = javaVersion
+
+repositories {
+	jcenter()
+}
+
+configurations {
+	all*.exclude group: 'commons-logging'
+}
+
+dependencies {
+	compile 'org.springframework:spring-context-support:3.2.13.RELEASE'
+	compile 'org.springframework.integration:spring-integration-core:2.2.6.RELEASE'
+	compile 'org.quartz-scheduler:quartz:2.2.1'
+	compile 'org.slf4j:jcl-over-slf4j:1.7.10'
+
+	testCompile 'junit:junit:4.12'
+	testRuntime 'ch.qos.logback:logback-classic:1.1.2'
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.3'
+}
