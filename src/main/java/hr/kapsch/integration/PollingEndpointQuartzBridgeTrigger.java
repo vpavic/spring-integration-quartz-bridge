@@ -6,17 +6,13 @@ import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.TriggerContext;
+import org.springframework.scheduling.quartz.JobDetailAwareTrigger;
 
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static hr.kapsch.scheduling.quartz.PollingEndpointQuartzBridgeJob.POLLING_ENDPOINT_BEAN_NAME_KEY;
-import static hr.kapsch.scheduling.quartz.PollingEndpointQuartzBridgeJob.TRIGGER_BEAN_NAME_KEY;
 import static java.util.Objects.requireNonNull;
-import static org.quartz.JobBuilder.newJob;
-import static org.quartz.TriggerBuilder.newTrigger;
-import static org.springframework.scheduling.quartz.JobDetailAwareTrigger.JOB_DETAIL_KEY;
 
 public class PollingEndpointQuartzBridgeTrigger implements BeanNameAware, InitializingBean, Trigger {
 
@@ -48,17 +44,17 @@ public class PollingEndpointQuartzBridgeTrigger implements BeanNameAware, Initia
 		JobKey jobKey = new JobKey(pollingEndpointBeanName);
 
 		if (!scheduler.checkExists(jobKey)) {
-			JobDetail jobDetail = newJob(PollingEndpointQuartzBridgeJob.class)
+			JobDetail jobDetail = JobBuilder.newJob(PollingEndpointQuartzBridgeJob.class)
 					.withIdentity(jobKey)
 					.storeDurably()
 					.build();
 
 			JobDataMap jobDataMap = new JobDataMap();
-			jobDataMap.put(JOB_DETAIL_KEY, jobDetail);
-			jobDataMap.put(POLLING_ENDPOINT_BEAN_NAME_KEY, pollingEndpointBeanName);
-			jobDataMap.put(TRIGGER_BEAN_NAME_KEY, triggerBeanName);
+			jobDataMap.put(JobDetailAwareTrigger.JOB_DETAIL_KEY, jobDetail);
+			jobDataMap.put(PollingEndpointQuartzBridgeJob.POLLING_ENDPOINT_BEAN_NAME_KEY, pollingEndpointBeanName);
+			jobDataMap.put(PollingEndpointQuartzBridgeJob.TRIGGER_BEAN_NAME_KEY, triggerBeanName);
 
-			org.quartz.Trigger trigger = newTrigger()
+			org.quartz.Trigger trigger = TriggerBuilder.newTrigger()
 					.withIdentity(pollingEndpointBeanName)
 					.withSchedule(scheduleBuilder)
 					.forJob(jobDetail)
