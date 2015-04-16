@@ -7,12 +7,11 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.TriggerContext;
 import org.springframework.scheduling.quartz.JobDetailAwareTrigger;
+import org.springframework.util.Assert;
 
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static java.util.Objects.requireNonNull;
 
 public class PollingEndpointQuartzBridgeTrigger implements BeanNameAware, InitializingBean, Trigger {
 
@@ -25,8 +24,11 @@ public class PollingEndpointQuartzBridgeTrigger implements BeanNameAware, Initia
 	private boolean done;
 
 	public PollingEndpointQuartzBridgeTrigger(Scheduler scheduler, ScheduleBuilder scheduleBuilder) {
-		this.scheduler = requireNonNull(scheduler);
-		this.scheduleBuilder = requireNonNull(scheduleBuilder);
+		Assert.notNull(scheduler, "scheduler is required");
+		Assert.notNull(scheduleBuilder, "scheduleBuilder is required");
+
+		this.scheduler = scheduler;
+		this.scheduleBuilder = scheduleBuilder;
 	}
 
 	@Override
