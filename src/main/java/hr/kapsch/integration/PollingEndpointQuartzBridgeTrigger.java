@@ -1,7 +1,16 @@
 package hr.kapsch.integration;
 
-import hr.kapsch.scheduling.quartz.PollingEndpointQuartzBridgeJob;
-import org.quartz.*;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.quartz.JobBuilder;
+import org.quartz.JobDataMap;
+import org.quartz.JobDetail;
+import org.quartz.JobKey;
+import org.quartz.ScheduleBuilder;
+import org.quartz.Scheduler;
+import org.quartz.TriggerBuilder;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.scheduling.Trigger;
@@ -9,9 +18,7 @@ import org.springframework.scheduling.TriggerContext;
 import org.springframework.scheduling.quartz.JobDetailAwareTrigger;
 import org.springframework.util.Assert;
 
-import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import hr.kapsch.scheduling.quartz.PollingEndpointQuartzBridgeJob;
 
 public class PollingEndpointQuartzBridgeTrigger implements BeanNameAware, InitializingBean, Trigger {
 
@@ -26,7 +33,6 @@ public class PollingEndpointQuartzBridgeTrigger implements BeanNameAware, Initia
 	public PollingEndpointQuartzBridgeTrigger(Scheduler scheduler, ScheduleBuilder scheduleBuilder) {
 		Assert.notNull(scheduler, "scheduler is required");
 		Assert.notNull(scheduleBuilder, "scheduleBuilder is required");
-
 		this.scheduler = scheduler;
 		this.scheduleBuilder = scheduleBuilder;
 	}
