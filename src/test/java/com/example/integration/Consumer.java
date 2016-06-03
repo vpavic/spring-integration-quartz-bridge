@@ -1,4 +1,4 @@
-package hr.kapsch.integration;
+package com.example.integration;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

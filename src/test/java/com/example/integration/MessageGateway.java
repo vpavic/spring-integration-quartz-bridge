@@ -1,4 +1,4 @@
-package hr.kapsch.integration;
+package com.example.integration;
 
 public interface MessageGateway {
 

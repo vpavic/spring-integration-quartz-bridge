@@ -1,4 +1,4 @@
-package hr.kapsch.scheduling.quartz;
+package com.example.scheduling.quartz;
 
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
@@ -7,7 +7,7 @@ import org.quartz.PersistJobDataAfterExecution;
 import org.springframework.context.ApplicationContext;
 import org.springframework.integration.endpoint.AbstractPollingEndpoint;
 
-import hr.kapsch.integration.PollingEndpointQuartzBridgeTrigger;
+import com.example.integration.PollingEndpointQuartzBridgeTrigger;
 
 @PersistJobDataAfterExecution
 @DisallowConcurrentExecution

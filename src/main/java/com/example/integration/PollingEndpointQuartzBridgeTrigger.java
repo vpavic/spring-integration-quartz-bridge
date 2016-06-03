@@ -1,9 +1,10 @@
-package hr.kapsch.integration;
+package com.example.integration;
 
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.example.scheduling.quartz.PollingEndpointQuartzBridgeJob;
 import org.quartz.JobBuilder;
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
@@ -17,8 +18,6 @@ import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.TriggerContext;
 import org.springframework.scheduling.quartz.JobDetailAwareTrigger;
 import org.springframework.util.Assert;
-
-import hr.kapsch.scheduling.quartz.PollingEndpointQuartzBridgeJob;
 
 public class PollingEndpointQuartzBridgeTrigger implements BeanNameAware, InitializingBean, Trigger {
 

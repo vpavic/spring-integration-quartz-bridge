@@ -7,10 +7,10 @@
 
 	<beans:bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<beans:property name="applicationContextSchedulerContextKey"
-			value="#{T(hr.kapsch.scheduling.quartz.ApplicationContextAwareQuartzJobBean).APPLICATION_CONTEXT_KEY}"/>
+			value="#{T(com.example.scheduling.quartz.ApplicationContextAwareQuartzJobBean).APPLICATION_CONTEXT_KEY}"/>
 	</beans:bean>
 
-	<gateway service-interface="hr.kapsch.integration.MessageGateway">
+	<gateway service-interface="com.example.integration.MessageGateway">
 		<method name="sendMessage" request-channel="messages"/>
 	</gateway>
 
@@ -18,13 +18,13 @@
 		<queue/>
 	</channel>
 
-	<beans:bean id="testConsumer" class="hr.kapsch.integration.Consumer"/>
+	<beans:bean id="testConsumer" class="com.example.integration.Consumer"/>
 
 	<outbound-channel-adapter id="testAdapter" channel="messages" ref="testConsumer" method="consumeMessage">
 		<poller trigger="testAdapterTrigger" max-messages-per-poll="1"/>
 	</outbound-channel-adapter>
 
-	<beans:bean id="testAdapterTrigger" class="hr.kapsch.integration.PollingEndpointQuartzBridgeTrigger">
+	<beans:bean id="testAdapterTrigger" class="com.example.integration.PollingEndpointQuartzBridgeTrigger">
 		<beans:constructor-arg ref="scheduler"/>
 		<beans:constructor-arg>
 			<beans:bean class="org.quartz.SimpleScheduleBuilder" factory-method="repeatSecondlyForever"/>

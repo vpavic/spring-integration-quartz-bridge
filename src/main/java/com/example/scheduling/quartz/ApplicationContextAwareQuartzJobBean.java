@@ -1,4 +1,4 @@
-package hr.kapsch.scheduling.quartz;
+package com.example.scheduling.quartz;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
