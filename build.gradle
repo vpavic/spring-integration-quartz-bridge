@@ -1,10 +1,7 @@
-def javaVersion = '1.6'
-
 apply plugin: 'java'
-apply plugin: 'idea'
 
-project.sourceCompatibility = javaVersion
-project.targetCompatibility = javaVersion
+sourceCompatibility = '1.6'
+targetCompatibility = '1.6'
 
 repositories {
 	jcenter()
@@ -15,11 +12,11 @@ configurations {
 }
 
 dependencies {
-	compile 'org.springframework:spring-context-support:3.2.13.RELEASE'
-	compile 'org.springframework.integration:spring-integration-core:2.2.6.RELEASE'
-	compile 'org.quartz-scheduler:quartz:2.2.1'
-	compile 'org.slf4j:jcl-over-slf4j:1.7.10'
+	compile 'org.springframework:spring-context-support:3.2.17.RELEASE'
+	compile 'org.springframework.integration:spring-integration-core:2.2.7.RELEASE'
+	compile 'org.quartz-scheduler:quartz:2.2.3'
+	compile 'org.slf4j:jcl-over-slf4j:1.7.21'
 
 	testCompile 'junit:junit:4.12'
-	testRuntime 'ch.qos.logback:logback-classic:1.1.2'
+	testCompile 'org.springframework:spring-test:3.2.17.RELEASE'
 }

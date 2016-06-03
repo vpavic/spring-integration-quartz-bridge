@@ -18,8 +18,9 @@
 		<queue/>
 	</channel>
 
-	<outbound-channel-adapter id="testAdapter" channel="messages" method="consumeMessage">
-		<beans:bean class="hr.kapsch.integration.Test"/>
+	<beans:bean id="testConsumer" class="hr.kapsch.integration.Consumer"/>
+
+	<outbound-channel-adapter id="testAdapter" channel="messages" ref="testConsumer" method="consumeMessage">
 		<poller trigger="testAdapterTrigger" max-messages-per-poll="1"/>
 	</outbound-channel-adapter>
 
