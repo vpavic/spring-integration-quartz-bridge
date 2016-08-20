@@ -1,22 +1,23 @@
 apply plugin: 'java'
 
-sourceCompatibility = '1.6'
-targetCompatibility = '1.6'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
 
 repositories {
-	jcenter()
+    jcenter()
 }
 
 configurations {
-	all*.exclude group: 'commons-logging'
+    all*.exclude group: 'commons-logging'
 }
 
 dependencies {
-	compile 'org.springframework:spring-context-support:3.2.17.RELEASE'
-	compile 'org.springframework.integration:spring-integration-core:2.2.7.RELEASE'
-	compile 'org.quartz-scheduler:quartz:2.2.3'
-	compile 'org.slf4j:jcl-over-slf4j:1.7.21'
+    compile 'org.springframework:spring-context-support:4.3.2.RELEASE'
+    compile 'org.springframework.integration:spring-integration-core:4.3.1.RELEASE'
+    compile 'org.quartz-scheduler:quartz:2.2.3'
+    compile 'org.slf4j:jcl-over-slf4j:1.7.21'
+    compile 'org.slf4j:slf4j-simple:1.7.21'
 
-	testCompile 'junit:junit:4.12'
-	testCompile 'org.springframework:spring-test:3.2.17.RELEASE'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.springframework:spring-test:4.3.2.RELEASE'
 }

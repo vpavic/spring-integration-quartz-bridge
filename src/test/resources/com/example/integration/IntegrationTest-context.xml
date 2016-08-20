@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/integration"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:beans="http://www.springframework.org/schema/beans"
-	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<beans:bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		<beans:property name="applicationContextSchedulerContextKey"
-			value="#{T(com.example.scheduling.quartz.ApplicationContextAwareQuartzJobBean).APPLICATION_CONTEXT_KEY}"/>
-	</beans:bean>
+    <beans:bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <beans:property name="applicationContextSchedulerContextKey"
+                        value="#{T(com.example.scheduling.quartz.ApplicationContextAwareQuartzJobBean).APPLICATION_CONTEXT_KEY}"/>
+    </beans:bean>
 
-	<gateway service-interface="com.example.integration.MessageGateway">
-		<method name="sendMessage" request-channel="messages"/>
-	</gateway>
+    <gateway service-interface="com.example.integration.MessageGateway">
+        <method name="sendMessage" request-channel="messages"/>
+    </gateway>
 
-	<channel id="messages">
-		<queue/>
-	</channel>
+    <channel id="messages">
+        <queue/>
+    </channel>
 
-	<beans:bean id="testConsumer" class="com.example.integration.Consumer"/>
+    <beans:bean id="testConsumer" class="com.example.integration.Consumer"/>
 
-	<outbound-channel-adapter id="testAdapter" channel="messages" ref="testConsumer" method="consumeMessage">
-		<poller trigger="testAdapterTrigger" max-messages-per-poll="1"/>
-	</outbound-channel-adapter>
+    <outbound-channel-adapter id="testAdapter" channel="messages" ref="testConsumer" method="consumeMessage">
+        <poller trigger="testAdapterTrigger" max-messages-per-poll="1"/>
+    </outbound-channel-adapter>
 
-	<beans:bean id="testAdapterTrigger" class="com.example.integration.PollingEndpointQuartzBridgeTrigger">
-		<beans:constructor-arg ref="scheduler"/>
-		<beans:constructor-arg>
-			<beans:bean class="org.quartz.SimpleScheduleBuilder" factory-method="repeatSecondlyForever"/>
-		</beans:constructor-arg>
-	</beans:bean>
+    <beans:bean id="testAdapterTrigger" class="com.example.integration.PollingEndpointQuartzBridgeTrigger">
+        <beans:constructor-arg ref="scheduler"/>
+        <beans:constructor-arg>
+            <beans:bean class="org.quartz.SimpleScheduleBuilder" factory-method="repeatSecondlyForever"/>
+        </beans:constructor-arg>
+    </beans:bean>
 
 </beans:beans>

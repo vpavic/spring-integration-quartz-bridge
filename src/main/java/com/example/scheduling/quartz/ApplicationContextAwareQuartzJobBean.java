@@ -9,16 +9,15 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 public abstract class ApplicationContextAwareQuartzJobBean extends QuartzJobBean {
 
-	public static final String APPLICATION_CONTEXT_KEY = "applicationContext";
+    public static final String APPLICATION_CONTEXT_KEY = "applicationContext";
 
-	protected ApplicationContext getApplicationContext(JobExecutionContext context) throws JobExecutionException {
-		try {
-			SchedulerContext schedulerContext = context.getScheduler().getContext();
-			return (ApplicationContext) schedulerContext.get(APPLICATION_CONTEXT_KEY);
-		}
-		catch (SchedulerException e) {
-			throw new JobExecutionException(e);
-		}
-	}
+    protected ApplicationContext getApplicationContext(JobExecutionContext context) throws JobExecutionException {
+        try {
+            SchedulerContext schedulerContext = context.getScheduler().getContext();
+            return (ApplicationContext) schedulerContext.get(APPLICATION_CONTEXT_KEY);
+        } catch (SchedulerException e) {
+            throw new JobExecutionException(e);
+        }
+    }
 
 }
