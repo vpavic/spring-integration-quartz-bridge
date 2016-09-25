@@ -16,7 +16,6 @@ import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.TriggerContext;
-import org.springframework.scheduling.quartz.JobDetailAwareTrigger;
 import org.springframework.util.Assert;
 
 public class PollingEndpointQuartzBridgeTrigger implements BeanNameAware, InitializingBean, Trigger {
@@ -57,7 +56,6 @@ public class PollingEndpointQuartzBridgeTrigger implements BeanNameAware, Initia
 					.build();
 
 			JobDataMap jobDataMap = new JobDataMap();
-			jobDataMap.put(JobDetailAwareTrigger.JOB_DETAIL_KEY, jobDetail);
 			jobDataMap.put(PollingEndpointQuartzBridgeJob.POLLING_ENDPOINT_BEAN_NAME_KEY, pollingEndpointBeanName);
 			jobDataMap.put(PollingEndpointQuartzBridgeJob.TRIGGER_BEAN_NAME_KEY, triggerBeanName);
 
